@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.call-sheet-stripe {
+  background-image: repeating-linear-gradient(
+    112deg,
+    #8b5cf6 0,
+    #8b5cf6 34px,
+    #c4b5fd 34px,
+    #c4b5fd 48px,
+    #f4f4f5 48px,
+    #f4f4f5 64px,
+    #27272a 64px,
+    #27272a 80px
+  );
+}
+
+@keyframes director-progress-beam {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(320%); }
+}
+
+.director-progress-beam {
+  animation: director-progress-beam 1.35s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .director-progress-beam { animation: none; }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Microsoft YaHei",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.14);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .content-auto-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 280px;
+  }
+
+  .content-auto-task {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 190px;
+  }
+}
+
+/* The shared channel ledger keeps the visual language of the original
+   STORETWO operations board without changing the rest of Jingxu. */
+.ops-workbench-theme {
+  --background: 48 28% 96%;
+  --foreground: 153 14% 17%;
+  --card: 48 42% 99%;
+  --card-foreground: 153 14% 17%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 153 14% 17%;
+  --primary: 162 57% 23%;
+  --primary-foreground: 48 25% 98%;
+  --secondary: 143 24% 92%;
+  --secondary-foreground: 160 34% 25%;
+  --muted: 48 14% 93%;
+  --muted-foreground: 153 8% 44%;
+  --accent: 144 28% 90%;
+  --accent-foreground: 161 40% 23%;
+  --destructive: 4 62% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 47 14% 84%;
+  --input: 47 12% 80%;
+  --ring: 162 34% 43%;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+}
+
+.ops-workbench-theme .ops-metric-icon {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border-radius: 0.7rem;
+}
+
+.ops-workbench-theme .ops-metric-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ops-workbench-theme .ops-metric-ink { background: #e5eee9; color: #255a4c; }
+.ops-workbench-theme .ops-metric-amber { background: #fff0ce; color: #996314; }
+.ops-workbench-theme .ops-metric-rose { background: #fee8e6; color: #a7453c; }
+.ops-workbench-theme .ops-metric-green { background: #dff4e6; color: #28734a; }
+
+.ops-workbench-theme .ops-filter-pill {
+  border: 1px solid hsl(var(--border));
+  border-radius: 999px;
+  padding: 0.36rem 0.7rem;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.ops-workbench-theme .ops-filter-pill:hover {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+.ops-workbench-theme .ops-filter-pill.is-active {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.ops-workbench-theme .ops-channel-dot {
+  display: inline-grid;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.ops-workbench-theme .ops-channel-a { background: #dcefe9; color: #1f6d60; }
+.ops-workbench-theme .ops-avatar-chip {
+  display: inline-grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  place-items: center;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.ops-workbench-theme select {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}

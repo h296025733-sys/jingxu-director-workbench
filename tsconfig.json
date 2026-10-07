@@ -1,0 +1,99 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-stage/types/**/*.ts",
+    ".next-stage/dev/types/**/*.ts",
+    ".next-stage-rollguard-20260901/types/**/*.ts",
+    ".next-stage-rollguard-20260901/dev/types/**/*.ts",
+    ".next-stage-fan-review-20260902/types/**/*.ts",
+    ".next-stage-fan-review-20260902/dev/types/**/*.ts",
+    ".next-stage-mainline-pip/types/**/*.ts",
+    ".next-stage-mainline-pip/dev/types/**/*.ts",
+    ".next-stage-oneclick-20260902-v1/types/**/*.ts",
+    ".next-stage-oneclick-20260902-v1/dev/types/**/*.ts",
+    ".next-stage-caption-hardgate-20260902-1815/types/**/*.ts",
+    ".next-stage-caption-hardgate-20260902-1815/dev/types/**/*.ts",
+    ".next-stage-caption-grounding-20260902-1820/types/**/*.ts",
+    ".next-stage-caption-grounding-20260902-1820/dev/types/**/*.ts",
+    ".next-stage-caption-bidirectional-20260902-1830/types/**/*.ts",
+    ".next-stage-caption-bidirectional-20260902-1830/dev/types/**/*.ts",
+    ".next-stage-caption-freegap-20260902-1840/types/**/*.ts",
+    ".next-stage-caption-freegap-20260902-1840/dev/types/**/*.ts",
+    ".next-stage-caption-hardonly-20260902-1850/types/**/*.ts",
+    ".next-stage-caption-hardonly-20260902-1850/dev/types/**/*.ts",
+    ".next-stage-watermark-recovery-20260909/types/**/*.ts",
+    ".next-stage-watermark-recovery-20260909/dev/types/**/*.ts",
+    ".next-stage-watermark-highlight-recovery-20260909/types/**/*.ts",
+    ".next-stage-watermark-highlight-recovery-20260909/dev/types/**/*.ts",
+    ".next-stage-edit-final-recovery-20260909/types/**/*.ts",
+    ".next-stage-edit-final-recovery-20260909/dev/types/**/*.ts",
+    ".next-stage-final-edit-recovery-20260909/types/**/*.ts",
+    ".next-stage-final-edit-recovery-20260909/dev/types/**/*.ts",
+    ".next-stage-watermark-removal-speed/types/**/*.ts",
+    ".next-stage-watermark-removal-speed/dev/types/**/*.ts",
+    ".next-stage-watermark-edit-20260914/types/**/*.ts",
+    ".next-stage-watermark-edit-20260914/dev/types/**/*.ts",
+    ".next-stage-tailframe-20260914/types/**/*.ts",
+    ".next-stage-tailframe-20260914/dev/types/**/*.ts",
+    ".next-stage-capacityretry-20260914/types/**/*.ts",
+    ".next-stage-capacityretry-20260914/dev/types/**/*.ts",
+    ".next-stage-editchain-20260914/types/**/*.ts",
+    ".next-stage-editchain-20260914/dev/types/**/*.ts",
+    ".next-stage-audiocut-20260914/types/**/*.ts",
+    ".next-stage-audiocut-20260914/dev/types/**/*.ts",
+    ".next-stage-voice-fix-20260914/types/**/*.ts",
+    ".next-stage-voice-fix-20260914/dev/types/**/*.ts",
+    ".next-stage-narration-20260914/types/**/*.ts",
+    ".next-stage-narration-20260914/dev/types/**/*.ts",
+    ".next-stage-narration-complete-20260917/types/**/*.ts",
+    ".next-stage-narration-complete-20260917/dev/types/**/*.ts",
+    ".next-stage-watermark-v3-20260922/types/**/*.ts",
+    ".next-stage-watermark-v3-20260922/dev/types/**/*.ts",
+    ".next-stage-watermark-v3-final-20260922/types/**/*.ts",
+    ".next-stage-watermark-v3-final-20260922/dev/types/**/*.ts",
+    ".next-stage-watermark-batch-20260923/types/**/*.ts",
+    ".next-stage-watermark-batch-20260923/dev/types/**/*.ts",
+    ".next-stage-watermark-la35-20260924/types/**/*.ts",
+    ".next-stage-watermark-la35-20260924/dev/types/**/*.ts",
+    ".next-stage-preflight-20260930/types/**/*.ts",
+    ".next-stage-preflight-20260930/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
