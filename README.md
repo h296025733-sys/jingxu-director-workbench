@@ -1,29 +1,47 @@
 # 镜序 · AI 影像创作台
 
-镜序是我做的一套影像创作工作台。使用者在一个窗口里写需求、放素材，再选择生成视频方案或自动剪成片。后台负责素材准备、任务编排和输出整理，界面只保留创作时需要的信息。
+**从素材和创作需求，到方案、剪辑与交付版本的一套本地工作台。**
 
-我比较在意两点：多人同时提交任务时别互相覆盖素材，任务失败或取消后要能知道流程停在哪里。项目因此保留了任务状态、过程文件、交付版本和权限检查。
+写需求、放参考片、整理提示词、剪视频、找最终版本，原本是分散的几步。镜序把它们收进同一个任务：前台处理素材预览和人工采用，后台安排模型调用与媒体处理，任务里保存过程文件和交付记录。
 
-## 主要功能
+项目使用 Next.js、React、TypeScript 和 Node SQLite。它比较复杂的地方在后台：多人同时提交任务、上传中途断开、模型输出不符合约定，都会影响最终交付。
 
-- 文字、图片、参考视频共同输入，生成可复制的视频提示词与素材上传顺序。
-- 图片和视频附件的版本预览、人工采用与重新制作。
-- 本地自动剪辑、英文 / 西语字幕、个人配音和独立水印处理入口。
-- 多账号任务队列、同账号串行、不同用户轮转和本地资源限制。
-- 管理员 / 成员权限、上传配额、取消传播、任务恢复及审计。
-- 渠道内容排期与运营记录，和创作任务放在同一工作台内。
+## 一个任务如何走到交付
 
-## 技术结构
+```mermaid
+flowchart LR
+    A["需求与素材"] --> B["任务归属与权限"]
+    B --> C["按用户轮转的队列"]
+    C --> D["创作规划与素材准备"]
+    C --> E["本地自动剪辑"]
+    D --> F["方案与附件版本"]
+    E --> G["计划校验与成片检查"]
+    G --> F
+    F --> H["预览、采用与交付"]
+```
 
-| 部分 | 实现 |
+创作规划输出分镜、视频提示词和素材上传顺序；自动剪辑路径调用 [Auto Video Lab](https://github.com/h296025733-sys/codex-auto-video-lab) 处理媒体。字幕、个人配音和水印处理有各自入口，渠道排期与运营记录也保留在工作台内。
+
+## 几个关键设计
+
+**任务公平与资源容量分开处理。** 同一用户的工作串行执行，不同用户按最近调度次序轮转；等待时间会影响优先级。任务队列之外，Codex、本地媒体和声音处理另有容量控制，避免把“用户可以提交多少任务”直接当成“机器可以同时跑多少进程”。
+
+**上传取消要处理正在写入的流。** 视频上传有独立会话、分片和组装状态。取消先写入状态，再中止活动流；流的清理逻辑负责收尾，避免删除仍在接收的文件。配额与过期会话清理在同一条上传链路里处理。
+
+**恢复后的模型输出仍需校验。** 网络中断与服务暂时不可用可以有限重试；授权失效、额度耗尽和主动取消会停止。格式修复和模型重写之后，候选结果仍要通过原来的校验器。
+
+**剪辑质量从原片覆盖和实际输出两侧检查。** 当用户要求保留原声时，主素材中未被识别为语音的区间也应保留。计划记录保留与遗漏的源时间段，成片再检查重复片段、音频切点等指标；这些测量不能代替人看实际画面。
+
+## 从这些代码开始
+
+| 关注点 | 实现入口 |
 | --- | --- |
-| 页面 | Next.js、React、TypeScript、Tailwind、Radix |
-| 数据与登录 | Node SQLite、JWT、httpOnly Cookie |
-| 创作规划 | 隔离 Codex 调用、结构化交付与素材规则 |
-| 本地媒体 | FFmpeg、Python、faster-whisper、Auto Video Lab |
-| 任务管理 | 公平队列、同用户串行、资源容量与取消传播 |
-
-`app/` 是页面和接口，`lib/` 是权限、队列与工作流，`tests/` 保留隔离回归。另一个仓库 [codex-auto-video-lab](https://github.com/h296025733-sys/codex-auto-video-lab) 提供媒体渲染实现。
+| 公平队列、优先级与取消 | [work-scheduler.ts](lib/work-scheduler.ts) · [回归用例](tests/work-scheduler.test.mjs) |
+| 模型、本地媒体与声音容量 | [codex-capacity.ts](lib/codex-capacity.ts) · [local-media-capacity.ts](lib/local-media-capacity.ts) · [voice-capacity.ts](lib/voice-capacity.ts) |
+| 分片上传与异常清理 | [video-upload-sessions.ts](lib/video-upload-sessions.ts) · [上传恢复用例](tests/video-upload-recovery.test.mjs) |
+| 生成输出修复与重试 | [generation-recovery.ts](lib/generation-recovery.ts) |
+| 原片保留与质量门槛 | [auto-edit-source-preservation.ts](lib/auto-edit-source-preservation.ts) · [auto-edit-quality-gates.ts](lib/auto-edit-quality-gates.ts) |
+| 交付包转换与任务状态 | [delivery-packages.ts](lib/delivery-packages.ts) |
 
 ## 本地开发
 
